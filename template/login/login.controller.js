@@ -11,6 +11,21 @@ function login(e) {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
 
-    //post request login + send sessionId to main.js
-    ipcRenderer.send('login:data', 'sessionId')
+    const sessionId = sendRequest(username, password);
+    console.log(sessionId);
+    if (sessionId.length === 64) {
+        ipcRenderer.send('login:data', sessionId)
+    } else {
+        const alert = document.querySelector('#alert');
+        const alertText = document.createTextNode('Login data incorrect');
+        alert.appendChild(alertText);
+    }
+}
+
+function sendRequest(username, password) {
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST",
+        "http://scorewinner.ch:8081/api/login?name=" + username + "&password=" + password, false);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
 }

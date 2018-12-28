@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <body>
-<h1>Movie</h1>
-<video></video>
+<div class="container card-body">
+    <h1>Movie</h1>
+    <p>
+        <script>document.write(movie.title)</script>
+    </p>
+    <div id="movie"></div>
+    <a href="../movie-list.view.html">Back</a>
+</div>
 <script src="./movie.controller.js"></script>
+<script>loadMovie()</script>
 </body>
 </html>

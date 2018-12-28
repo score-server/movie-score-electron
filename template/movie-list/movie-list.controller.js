@@ -1,26 +1,36 @@
 const electron = require('electron');
 
 function loadMovies() {
-    //load movies from api
     const movieList = document.querySelector('ul');
 
-    const movies = [
-        ['blob', 2019],
-        ['testmovie', 2019],
-        ['teeee', 2014],
-        ['bluuu', 201]
-    ];
+    const json =
+        httpGet('http://scorewinner.ch:8081/api/movie?sessionId=b9d59e78ea5f30c2bd1d748d8ef6bd7f6a914dadac213b1a2d0f4b0a170104f1');
+
+    const movies = JSON.parse(json);
 
     for (let i = 0; i < movies.length; i++) {
         const movie = movies[i];
 
-        const movieCard = document.createElement('li');
-        const movieLink = document.createElement('a');
-        movieLink.href = './Movie/Movie.view.html?Movie=' + movie[1];
-        const movieTitle = document.createTextNode(movie[0] + ' ' + movie[1]);
+        const card = document.createElement('li');
+        card.classList.add('list-group-item');
+        const thumbnail = document.createElement('img');
+        thumbnail.src = movie.caseImg;
+        thumbnail.classList.add('img-thumbnail');
+        thumbnail.style = "max-height: 50px; min-height: 50px";
+        const link = document.createElement('a');
+        link.href = './Movie/Movie.view.html?movie=' + movie.id;
+        const title = document.createTextNode(movie.title + ' ' + movie.year);
 
-        movieLink.appendChild(movieTitle);
-        movieCard.appendChild(movieLink);
-        movieList.appendChild(movieCard);
+        link.appendChild(title);
+        card.appendChild(thumbnail);
+        card.appendChild(link);
+        movieList.appendChild(card);
     }
+}
+
+function httpGet(theUrl) {
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
 }
