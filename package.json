@@ -1,0 +1,14 @@
+{
+  "name": "movie-score-electron",
+  "version": "1.0.0",
+  "description": "desktop application for movie-score",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Wetwer",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.0.0"
+  }
+}
